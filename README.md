@@ -40,7 +40,7 @@
 
 ## Main Branches
 
-The main repository will always hold three evergreen branches:
+The main repository will always hold two evergreen branches:
 
 * `main`
 * `staging`
