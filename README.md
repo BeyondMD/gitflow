@@ -151,7 +151,7 @@ When development on the hotfix is complete two merge request should be created, 
 
 ### Snapshot Branch
 
-Snapshot branches exist for the sole purpose of having end users test out new features before they are ready to be merged into `staging`. `snapshot` is connected to a server and any changes merged into it will be present on the on a live testing site. This allows the end user to test out features that are not staged yet so that the devs can receive feedback on their feature. When the testing period is over the snapshot branch should be deleted by a devops engineer or the project lead.
+The snapshot branch exists for the sole purpose of having end users test out new features before they are ready to be merged into `staging`. `snapshot` is connected to a server and any changes merged into it will be present on the on a live testing site. This allows the end user to test out features that are not staged yet so that the devs can receive feedback on their feature. When the testing period is over the snapshot branch should be deleted by a devops engineer or the project lead.
 
 * Must branch from: `staging`
 * Must not be merged back into any branch
