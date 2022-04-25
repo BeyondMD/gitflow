@@ -34,7 +34,7 @@
     <tr>
       <td>Snapshot</td>
       <td>snapshot</td>
-      <td>Branches off Staging and accepts merges from Features/Issues.This branch is tested, feedback is given, and then the branch is deleted after testing period is over</td>
+      <td>Accepts merges from features that are being tested by end users for feedback.</td>
   </tbody>
 </table>
 
