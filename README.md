@@ -33,7 +33,7 @@
     </tr>
     <tr>
       <td>Snapshot</td>
-      <td>snapshot-*</td>
+      <td>snapshot</td>
       <td>Branches off Staging and accepts merges from Features/Issues.This branch is tested, feedback is given, and then the branch is deleted after testing period is over</td>
   </tbody>
 </table>
