@@ -49,11 +49,11 @@ The main branch should be considered `origin/staging` and will be the main branc
 
 Consider `origin/main` to always represent the latest code deployed to production. During day to day development, the `main` branch will not be interacted with.
 
-When the source code in the `staging` branch is ready to be deployed, all of the changes will be merged into `main` and be given a release number with the semantic versioning standard.
+When the source code in the `staging` branch is ready to be deployed, all of the changes will be merged into `main` and be given a release number following the semantic versioning standard.
 
 ## Supporting Branches
 
-Supporting branches are used to aid parallel development between team members, ease tracking of features, and to assist in quickly fixing live production problems. Unlike the main branches, these branches always have a limited life time, since they will be removed eventually.
+Supporting branches are used to aid parallel development between team members and to assist in quickly fixing live production problems. Unlike the main branches, these branches always have a limited life time, since they will be removed eventually.
 
 The different types of branches we may use are:
 
@@ -150,11 +150,11 @@ $ git push origin hf-<name/desc>                         // makes the new hotfix
 
 When development on the hotfix is complete two merge request should be created, one into `staging` as to not loose the changes, and the other into `main`. The assignee should be the person who was assigned the hotfix ie. the team lead, or single dev and the reviewer should be your lead or your assigned reviewer. 
 
-### Snapshot Branch
+## Snapshot Branch
 
 The snapshot branch exists for the sole purpose of having end users test out new features before they are ready to be merged into `staging`. `snapshot` is connected to a server and any changes merged into it will be present on the on a live testing site. This allows the end user to test out features that are not staged yet so that the devs can receive feedback on their feature. When the testing period is over the snapshot branch should be deleted by a devops engineer or the project lead.
 
-#### Working with a snapshot branch
+### Working with a snapshot branch
 
 The snapshot branch should only be used if the lead dev of a feature is given the go ahead. That lead dev should then merge the changes of the feature branch being tested via a merge request (which does not have to be reviewed) into the snapshot branch on a nightly basis. The testing period of the feature ends once it is merged into `staging` and the feature branch has been deleted.
 
