@@ -148,16 +148,16 @@ $ git checkout -b hf-<name/desc> main                    // creates a local bran
 $ git push origin hf-<name/desc>                         // makes the new hotfix remotely available
 ```
 
-When development on the hotfix is complete two merge request should be created, one into `staging` as to not loose the changes, and the other into `main`. The assignee should be the person who was assigned the hotfix ie. the team lead, or single dev and the reviewer should be your lead or your assigned reviewer. 
+When development on the hotfix is complete two merge requests should be created, one into `staging` as to not loose the changes, and the other into `main`. The assignee should be the person who was assigned the hotfix ie. the team lead, or single dev and the reviewer should be your lead or your assigned reviewer. 
 
 ## Snapshot Branch
 
-The snapshot branch exists for the sole purpose of having end users test out new features before they are ready to be merged into `staging`. `snapshot` is connected to a server and any changes merged into it will be present on the on a live testing site. This allows the end user to test out features that are not staged yet so that the devs can receive feedback on their feature. When the testing period is over the snapshot branch should be deleted by a devops engineer or the project lead.
+The snapshot branch exists for the sole purpose of having end users test out new features before they are ready to be merged into `staging`. `snapshot` is connected to a server and any changes merged into it will be present on a live testing site. This allows the end user to test out features that are not yet staged so that the devs can receive feedback on their feature. When the testing period is over the snapshot branch should be deleted by a devops engineer or the project lead.
 
 ### Working with a snapshot branch
 
-The snapshot branch should only be used if the lead dev of a feature is given the go ahead. That lead dev should then merge the changes of the feature branch being tested via a merge request (which does not have to be reviewed) into the snapshot branch on a nightly basis. The testing period of the feature ends once it is merged into `staging` and the feature branch has been deleted.
+The snapshot branch should only be used if the lead dev of a feature has given the go ahead. That lead dev should then merge the changes of the feature branch being tested via a merge request (which does not have to be reviewed) into the snapshot branch on a nightly basis. The testing period of the feature ends once it is merged into `staging` and the feature branch has been deleted.
 
 ## Other Material
-* [digitaljhelms's brnahcing rules](https://gist.github.com/digitaljhelms/4287848)(what this is based on)
+* [digitaljhelms's branching rules](https://gist.github.com/digitaljhelms/4287848)(what this is based on)
 * [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
