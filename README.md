@@ -159,5 +159,5 @@ The snapshot branch exists for the sole purpose of having end users test out new
 The snapshot branch should only be used if the lead dev of a feature is given the go ahead. That lead dev should then merge the changes of the feature branch being tested via a merge request (which does not have to be reviewed) into the snapshot branch on a nightly basis. The testing period of the feature ends once it is merged into `staging` and the feature branch has been deleted.
 
 ## Other Material
-* [digitaljhelms's brnahcing rules](what this is based on)
+* [digitaljhelms's brnahcing rules](https://gist.github.com/digitaljhelms/4287848)(what this is based on)
 * [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
