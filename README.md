@@ -44,15 +44,12 @@ The main repository will always hold three evergreen branches:
 
 * `main`
 * `staging`
-* `snapshot`
 
 The main branch should be considered `origin/staging` and will be the main branch where the source code of `HEAD` always reflects a state with the latest delivered development changes for the next release. As a developer, you will be branching and merging from `staging`.
 
 Consider `origin/main` to always represent the latest code deployed to production. During day to day development, the `main` branch will not be interacted with.
 
 When the source code in the `staging` branch is ready to be deployed, all of the changes will be merged into `main` and be given a release number with the semantic versioning standard.
-
-Information on the `snapshot` branch can be found below
 
 ## Supporting Branches
 
