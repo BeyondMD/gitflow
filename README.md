@@ -1,4 +1,4 @@
-# Branching
+# Gitflow
 
 ## Quick Legend
 
