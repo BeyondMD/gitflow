@@ -69,6 +69,7 @@ Feature branches are used when developing a new feature or enhancement and will 
 
 During the lifespan of the feature development, the lead should watch the `staging` branch to see if there have been commits since the feature was branched. Any and all changes to `staging` should be merged into the feature before merging back to `staging`; this can be done at various times during the project or at the end, but time to handle merge conflicts should be accounted for.
 
+Branching Rules:
 * Must branch from: `staging`
 * Must merge back into: `staging` or `snapshot` if applicable
 * Branch naming convention: `feature-<short feature name/description>` ex: `feature-emsoap`
@@ -98,6 +99,7 @@ Minor branches differ from feature branches only semantically. Minor branches wi
 
 Although likelihood will be less, during the lifespan of the minor branches development, the lead should watch the `staging` branch to see if there have been commits since the the minor branch was branched. Any and all changes to `staging` should be merged into the minor change before merging back to `staging`; this can be done at various times during the project or at the end, but time to handle merge conflicts should be accounted for.
 
+Branching Rules:
 * Must branch from: `staging`
 * Must merge back into: `staging`
 * Branch naming convention: `minor-<name/desc>`
@@ -129,8 +131,7 @@ A hotfix branch comes from the need to act immediately upon an undesired state o
 * Development on the `staging` branch can continue while the hotfix is being addressed.
 * The main branch represents what is in production. At the point in time where a hotfix is needed, there could have been multiple commits to `staging` which would then no longer represent production.
 
-
-
+Branching Rules:
 * Must branch from: `main`
 * Must merge back into: `staging` and `main`
 * Branch naming convention: `hf-<name/desc>`
@@ -152,10 +153,6 @@ When development on the hotfix is complete two merge request should be created, 
 ### Snapshot Branch
 
 The snapshot branch exists for the sole purpose of having end users test out new features before they are ready to be merged into `staging`. `snapshot` is connected to a server and any changes merged into it will be present on the on a live testing site. This allows the end user to test out features that are not staged yet so that the devs can receive feedback on their feature. When the testing period is over the snapshot branch should be deleted by a devops engineer or the project lead.
-
-* Must branch from: `staging`
-* Must not be merged back into any branch
-* Branch naming convention: `snapshot`
 
 #### Working with a snapshot branch
 
