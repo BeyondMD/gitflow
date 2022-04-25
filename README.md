@@ -1,92 +1,168 @@
-# gitflow
+# Branching
 
+## Quick Legend
 
+<table>
+  <thead>
+    <tr>
+      <th>Instance</th>
+      <th>Branch</th>
+      <th>Description, Instructions, Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Stable</td>
+      <td>main</td>
+      <td>Accepts merges from Staging and Hotfixes</td>
+    </tr>
+    <tr>
+      <td>Staging</td>
+      <td>staging</td>
+      <td>Accepts merges from Features/Issues and Hotfixes</td>
+    </tr>
+    <tr>
+      <td>Features/Issues</td>
+      <td>topic-*</td>
+      <td>Always branch off HEAD of Staging</td>
+    </tr>
+    <tr>
+      <td>Hotfix</td>
+      <td>hf-*</td>
+      <td>Always branch off Stable</td>
+    </tr>
+    <tr>
+      <td>Snapshot</td>
+      <td>snapshot-*</td>
+      <td>Branches off Staging and accepts merges from Features/Issues.This branch is tested, feedback is given, and then the branch is deleted after testing period is over</td>
+  </tbody>
+</table>
 
-## Getting started
+## Main Branches
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+The main repository will always hold three evergreen branches:
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+* `main`
+* `staging`
+* `snapshot`
 
-## Add your files
+The main branch should be considered `origin/staging` and will be the main branch where the source code of `HEAD` always reflects a state with the latest delivered development changes for the next release. As a developer, you will be branching and merging from `staging`.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+Consider `origin/main` to always represent the latest code deployed to production. During day to day development, the `main` branch will not be interacted with.
+
+When the source code in the `staging` branch is ready to be deployed, all of the changes will be merged into `main` and be given a release number with the semantic versioning standard.
+
+Information on the `snapshot` branch can be found below
+
+## Supporting Branches
+
+Supporting branches are used to aid parallel development between team members, ease tracking of features, and to assist in quickly fixing live production problems. Unlike the main branches, these branches always have a limited life time, since they will be removed eventually.
+
+The different types of branches we may use are:
+
+* Feature branches
+* Minor branches
+* Hotfix branches
+
+Each of these branches have a specific purpose and are bound to strict rules as to which branches may be their originating branch and which branches must be their merge targets. Each branch and its usage is explained below.
+
+### Feature Branches
+
+Feature branches are used when developing a new feature or enhancement and will tend to be related to either a story or an epic on jira, meaning it has the potential of a development lifespan longer than a single deployment cycle. This makes it easier to colaborate and push to the feature branch without slowing down completed features and issues from being merged from `staging` into `main`. No matter when the feature branch will be finished, it will always be merged back into the `staging` branch.
+
+During the lifespan of the feature development, the lead should watch the `staging` branch to see if there have been commits since the feature was branched. Any and all changes to `staging` should be merged into the feature before merging back to `staging`; this can be done at various times during the project or at the end, but time to handle merge conflicts should be accounted for.
+
+* Must branch from: `staging`
+* Must merge back into: `staging` or `snapshot-*` if applicable
+* Branch naming convention: `feature-<short feature name/description>` ex: `feature-emsoap`
+
+#### Working with a feature branch
+
+If the branch does not exist yet (check with the Lead), create the branch locally and then push to origin. A feature branch should always be 'publicly' available. That is, development should never exist in just one developer's local branch.
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/beyondmd/gitflow.git
-git branch -M main
-git push -uf origin main
+$ git fetch                                           // updates all remote changes
+$ git pull origin HEAD                                // applies remote changes to local copy of staging
+$ git checkout -b feature-<name/desc> staging         // creates a local branch for the new feature
+$ git push origin feature-<name/desc>                 // makes the new feature remotely available
 ```
 
-## Integrate with your tools
+Periodically, changes made to `staging` (if any) should be merged back into your feature branch by the lead of said feature.
 
-- [ ] [Set up project integrations](https://gitlab.com/beyondmd/gitflow/-/settings/integrations)
+```
+$ git merge staging                                  // merges changes from staging into feature branch
+```
 
-## Collaborate with your team
+When development on the feature is complete a merge request should be created. The assignee should be the person who was assigned the feature ie. the team lead, or single dev and the reviewer should be your lead or your assigned reviewer. 
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+### Minor Branches
 
-## Test and Deploy
+Minor branches differ from feature branches only semantically. Minor branches will be created when there is something small such as a bug or small change on the live site that should be fixed/added and merged into the next deployment and will tend to be related to either a task on jira. For that reason, a minor branch typically will not last longer than one deployment cycle. No matter when the minor branch will be finished, it will always be merged back into `staging`.
 
-Use the built-in continuous integration in GitLab.
+Although likelihood will be less, during the lifespan of the minor branches development, the lead should watch the `staging` branch to see if there have been commits since the the minor branch was branched. Any and all changes to `staging` should be merged into the minor change before merging back to `staging`; this can be done at various times during the project or at the end, but time to handle merge conflicts should be accounted for.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+* Must branch from: `staging`
+* Must merge back into: `staging`
+* Branch naming convention: `minor-<name/desc>`
 
-***
+#### Working with a minor branch
 
-# Editing this README
+If the branch does not exist yet (check with the Lead), create the branch locally and then push to origin. A minor branch should always be 'publicly' available. That is, development should never exist in just one developer's local branch.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+```
+$ git checkout staging                              // ensure you are currently on the staging branch
+$ git fetch                                         // updates all remote changes
+$ git pull origin HEAD                              // applies remote changes to local copy of staging
+$ git checkout -b minor-<name/desc> staging         // creates a local branch for the new minor branch
+$ git push origin minor-<name/desc>                 // makes the new bug remotely available
+```
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Periodically, changes made to `staging` (if any) should be merged back into your minor branch by the lead of said minor change.
 
-## Name
-Choose a self-explaining name for your project.
+```
+$ git merge staging                                 // merges changes from staging into minor branch
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+When development on the feature is complete a merge request should be created. The assignee should be the person who was assigned the feature ie. the team lead, or single dev and the reviewer should be your lead or your assigned reviewer. 
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+### Hotfix Branches
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+A hotfix branch comes from the need to act immediately upon an undesired state of a live production version. Additionally, because of the urgency, a hotfix is not required to be be pushed during a scheduled deployment. Due to these requirements, a hotfix branch is always branched from the `main` branch. This is done for two reasons:
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+* Development on the `staging` branch can continue while the hotfix is being addressed.
+* The main branch represents what is in production. At the point in time where a hotfix is needed, there could have been multiple commits to `staging` which would then no longer represent production.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+* Must branch from: `main`
+* Must merge back into: `staging` and `main`
+* Branch naming convention: `hf-<name/desc>`
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+#### Working with a hotfix branch
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+If the branch does not exist yet (check with the Lead), create the branch locally and then push to origin. A hotfix branch should always be 'publicly' available. That is, development should never exist in just one developer's local branch.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+```
+$ git checkout main                                      // ensure you are currently on the staging branch
+$ git fetch                                              // updates all remote changes
+$ git pull origin HEAD                                   // applies remote changes to local copy of main
+$ git checkout -b hf-<name/desc> main                    // creates a local branch for the new hotfix
+$ git push origin hf-<name/desc>                         // makes the new hotfix remotely available
+```
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+When development on the hotfix is complete two merge request should be created, one into `staging` as to not loose the changes, and the other into `main`. The assignee should be the person who was assigned the hotfix ie. the team lead, or single dev and the reviewer should be your lead or your assigned reviewer. 
 
-## License
-For open source projects, say how it is licensed.
+### Snapshot Branch
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Snapshot branches exist for the sole purpose of having end users test out new features before they are ready to be merged into `staging`. `snapshot` is connected to a server and any changes merged into it will be present on the on a live testing site. This allows the end user to test out features that are not staged yet so that the devs can receive feedback on their feature. When the testing period is over the snapshot branch should be deleted by a devops engineer or the project lead.
+
+* Must branch from: `staging`
+* Must not be merged back into any branch
+* Branch naming convention: `snapshot`
+
+#### Working with a snapshot branch
+
+The snapshot branch should only be used if the lead dev of a feature is given the go ahead. That lead dev should then merge the changes of the feature branch being tested via a merge request (which does not have to be reviewed) into the snapshot branch on a nightly basis. The testing period of the feature ends once it is merged into `staging` and the feature branch has been deleted.
+
+## Other Material
+* [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
