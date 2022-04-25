@@ -73,7 +73,7 @@ Feature branches are used when developing a new feature or enhancement and will 
 During the lifespan of the feature development, the lead should watch the `staging` branch to see if there have been commits since the feature was branched. Any and all changes to `staging` should be merged into the feature before merging back to `staging`; this can be done at various times during the project or at the end, but time to handle merge conflicts should be accounted for.
 
 * Must branch from: `staging`
-* Must merge back into: `staging` or `snapshot-*` if applicable
+* Must merge back into: `staging` or `snapshot` if applicable
 * Branch naming convention: `feature-<short feature name/description>` ex: `feature-emsoap`
 
 #### Working with a feature branch
