@@ -39,6 +39,7 @@
 </table>
 
 `* = wildcard`
+`topic = feature/minor`
 
 ## Main Branches
 
