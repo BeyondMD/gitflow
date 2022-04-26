@@ -38,7 +38,7 @@
   </tbody>
 </table>
 
-`* = wildcard`
+`* = <name/desc>`
 
 `topic = feature/minor`
 
