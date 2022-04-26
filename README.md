@@ -38,6 +38,8 @@
   </tbody>
 </table>
 
+`* = wildcard`
+
 ## Main Branches
 
 The main repository will always hold two evergreen branches:
