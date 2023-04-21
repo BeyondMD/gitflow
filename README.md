@@ -164,7 +164,7 @@ The snapshot branch should only be used if the lead dev of a feature branch has 
 
 ## Workflow Diagram
 
-![worflow diagram](https://gitlab.com/beyondmd/gitflow/-/raw/main/img/final-gitflow.png)
+![worflow diagram](https://github.com/BeyondMD/gitflow/blob/main/img/final-gitflow.png)
 
 ## Other Material
 * [digitaljhelms's branching rules](https://gist.github.com/digitaljhelms/4287848) (what this is based on)
