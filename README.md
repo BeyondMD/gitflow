@@ -51,17 +51,17 @@ Under a stable workflow there will always be two evergreen branches:
 * `master`
 * `devel`
 
-The primary branch should be considered `origin/devel` and will be the branch where the source code of `HEAD` always reflects a state with the latest completed development changes for the next deployment cycle. As a developer, you will be branching and merging from `origin/devel` or an local `devel` that is updated with the latest changes from `origin/devel`. 
+The primary branch should be considered `origin/devel` and will be the branch where the source code of `HEAD` always reflects a state with the latest completed development changes for the next deployment cycle. As a developer, you will be branching and merging from `origin/devel` or a local `devel` that is updated with the latest changes from `origin/devel`. 
 
 Consider `origin/master` to always represent the latest code deployed to production. During day to day development, `master` will not be interacted with. 
 
-When the source code in the devel branch is ready to be deployed, all of the changes will be merged into master and be given a release number following the semantic versioning standard.
+When the source code in the devel branch is ready to be deployed, a pull request will be created into master and be given a release number following the semantic versioning standard.
 
 ### Fast Workflow
 
 The fast workflow ephasizes getting commits into production as fast as possible. It is almost as if everything is a hotfix.
 
-When a repository uses the fast workflow, the Stable and Working instances are the same. This usually happens when a branch is extremely new and stability and uptime are not a priority. In this case there is only one evergreen branch and it should be called `master`. If you are working on a repository with the fast workflow in place then the Stable and Working instances and their respective branches should be considered the same in this document.
+When a repository uses the fast workflow, the Stable and Working instances are the same. This usually happens when a repository is extremely new and stability, uptime, and versioning are not a priority. In this case there is only one evergreen branch and it should be called `master`. If you are working on a repository with the fast workflow in place then `master` and `devel` branches should be considered the same in this document. In otherwords anytime you see `devel` replace it with master.
 
 ## Supporting Branches
 
@@ -80,7 +80,7 @@ Each of these branches have a specific purpose and are bound to strict rules as 
 
 Feature branches are used when developing a new feature or enhancement and should be related to an epic in taiga, meaning it has the potential of a development lifespan longer than a single sprint. This makes it easier to colaborate and push to the feature branch without bogging down other branches with incomplete code and keeps `devel` and `master` clean. No matter when the feature branch will be finished, it will always be merged via a pull request back into the `devel` branch.
 
-During the lifespan of the feature development, the lead should watch the `devel` branch to see if there have been commits since the feature was branched. Any and all changes to `devel` should be merged into the feature branch before creating a pull request back to `devel`; this can be done at various times during the project and will always at the end, but time to handle merge conflicts should be accounted for.
+During the lifespan of the feature development, the lead should watch the `devel` branch to see if there have been commits since the feature was branched. Any and all changes to `devel` should be merged into the feature branch before creating a pull request back to `devel`; this can be done at various times during the project and always at the end of the branches lifespan, but time to handle merge conflicts should be accounted for.
 
 Branching Rules:
 * Must branch from: `devel`
@@ -89,7 +89,7 @@ Branching Rules:
 
 #### Working with a feature branch
 
-If the branch does not exist yet, create the branch locally and then push to origin. A feature branch should always be 'publicly' available. That is, development should never exist in just one developer's local branch.
+If the branch does not exist yet, create the branch locally and then push to origin. A feature branch should always be 'publicly' available. That is, changes should never exist in just one developer's local branch.
 
 ```
 $ git fetch                                 // updates all remote changes
@@ -101,16 +101,17 @@ $ git push origin feature-<name/desc>       // makes the new feature remotely av
 Periodically, changes made to `devel` (if any) should be merged back into your feature branch by the lead of said feature.
 
 ```
-$ git merge devel                           // merges changes from devel into minor branch
+$ git merge devel                           // merges changes from devel into feature branch
 ```
 
 When development on the feature is complete a pull request should be created. The assignee should be the person who was assigned the feature ie. the team lead, or single dev and the reviewer should be your lead or your assigned reviewer. 
 
 ### Minor Branches
 
-Minor branches differ from feature branches only semantically. Minor branches will be created when there is something small such as a bug or small change on the live site that should be fixed/added and merged into the next deployment and should be related to a story on taiga. For that reason, a minor branch will typically be completed in a single sprint. When the minor branch is completed, it should be merged back into `devel`.
+Minor branches differ from feature branches only semantically. Minor branches will be created when there is something small such as a bug or small change on the live site that should be fixed/added and merged into the next deployment and should be related to a story on taiga. For that reason, a minor branch will typically be completed in a single sprint. The minor branch will always be merged via a pull request back into the `devel` branch.
 
-Although likelihood will be less, during the lifespan of the minor branches development, the lead should watch the `devel` branch to see if there have been commits since the the minor branch was branched. Any and all changes to `devel` should be merged into the minor branch before creating a pull request back to `devel`; this can be done at various times during the project and will always happen at the end, but time to handle merge conflicts should be accounted for.
+
+Although likelihood will be less, during the lifespan of the minor branches development, the lead should watch the `devel` branch to see if there have been commits since the the minor branch was branched. Any and all changes to `devel` should be merged into the minor branch before creating a pull request back to `devel`; this can be done at various times during the project and always happen at the end of the branches lifespan, but time to handle merge conflicts should be accounted for.
 
 #### Branching Rules:
 * Must branch from: `devel`
@@ -119,7 +120,7 @@ Although likelihood will be less, during the lifespan of the minor branches deve
 
 #### Working with a minor branch
 
-If the branch does not exist yet, create the branch locally and then push to origin. A minor branch should always be 'publicly' available. That is, development should never exist in just one developer's local branch.
+If the branch does not exist yet, create the branch locally and then push to origin. A minor branch should always be 'publicly' available. That is, changes should never exist in just one developer's local branch.
 
 ```
 $ git checkout devel                              // ensure you are currently on the devel branch
@@ -146,8 +147,8 @@ A hotfix branch comes from the need to act immediately upon an undesired state o
 
 #### Branching Rules:
 * Must branch from: `master`
-* Must create pull request back into: `master`
-* Branch naming convention: `hf-<name/desc>`
+* Must create pull request back into: `master` and `devel`
+* Branch naming convention: `hf-short_hotfix_name`
 
 #### Working with a hotfix branch
 
@@ -161,11 +162,17 @@ $ git checkout -b hf-<name/desc> master                  // creates a local bran
 $ git push origin hf-<name/desc>                         // makes the new hotfix remotely available
 ```
 
-When development on the hotfix is complete two pull requests should be created, one into `devel` as to not loose the changes, and the other into `master`. The assignee should be the person who was assigned the hotfix ie. the team lead, or single dev and the reviewer should be your lead or your assigned reviewer. 
+When development on the hotfix is complete two pull requests should be created, one into `devel` as to not lose the changes, and the other into `master`. The assignee should be the person who was assigned the hotfix ie. the team lead, or single dev and the reviewer should be your lead or your assigned reviewer. 
+
+## Pull Requests
+
+Pull requests are useful for two main reasons. It allows a branch to be merged back into an evergreen branch, and allows for code review. There should always be at least
+
+Reviewer
 
 ## Workflow Diagram
 
-![worflow diagram](https://github.com/BeyondMD/gitflow/blob/main/img/final-gitflow.png)
+![worflow diagram](https://github.com/BeyondMD/gitflow/blob/master/img/final-gitflow.png)
 
 ## Other Material
 * [digitaljhelms's branching rules](https://gist.github.com/digitaljhelms/4287848) (what this is based on)
