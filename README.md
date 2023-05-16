@@ -14,7 +14,7 @@
     <tr>
       <td>Stable</td>
       <td>master</td>
-      <td>Accepts pull requests from `devel` and Hotfixes</td>
+      <td>Accepts pull requests from devel and Hotfixes</td>
     </tr>
     <tr>
       <td>Working</td>
@@ -23,13 +23,13 @@
     </tr>
     <tr>
       <td>Features/Issues</td>
-      <td><topic>-*</td>
+      <td>`topic`-*</td>
       <td>Always branch off HEAD of Working</td>
     </tr>
     <tr>
       <td>Hotfix</td>
       <td>hf-*</td>
-      <td>Always branch off `master`</td>
+      <td>Always branch off master</td>
     </tr>
   </tbody>
 </table>
