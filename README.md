@@ -36,7 +36,7 @@
 
 `* = <name/desc>`
 
-`topic = feature/minor/devops`
+`topic = feature/minor`
 
 ## Evergreen Branches
 
@@ -82,7 +82,7 @@ Feature branches are used when developing a new feature or enhancement and shoul
 
 During the lifespan of the feature development, the lead should watch the `devel` branch to see if there have been commits since the feature was branched. Any and all changes to `devel` should be merged into the feature branch before creating a pull request back to `devel`; this can be done at various times during the project and always at the end of the branches lifespan, but time to handle merge conflicts should be accounted for.
 
-Branching Rules:
+#### Branching Rules:
 * Must branch from: `devel`
 * Must create pull request back into: `devel`
 * Branch naming convention: `feature-short_feature_name` ex: `feature-document_viewer`
@@ -168,7 +168,7 @@ When development on the hotfix is complete two pull requests should be created, 
 
 Pull requests are useful for two main reasons. It allows a branch to be merged back into an evergreen branch, and allows for code review. There should always be at least two people involved in a pull request: a reviewer and an assignee. Everyone who has made a commit to the branch should be added to the assignees feild. The reviewer should be someone who is either assigned or someone who did not work on the supporting branch
 
-## Resposibilities
+### Resposibilities
 
 * Reviewer: The reviewers only job is to approve the pull request. They should not be the one to actually merge the pull request. They should also leave comments on the pull request if they have any questions, comments, or concerns about the code they are reviewing
 * Assignees: The assignees should reply to the reviewer if they have commented anything that warrents a response and make changes and push them to the branch when needed. Once the reviewer approves the pull request the lead dev of the branch should go ahead and merge the branch into necessary branches.
