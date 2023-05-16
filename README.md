@@ -24,7 +24,7 @@
     <tr>
       <td>Features/Issues</td>
       <td>[topic]-*</td>
-      <td>Always branch off HEAD of Working</td>
+      <td>Always branch off of devel</td>
     </tr>
     <tr>
       <td>Hotfix</td>
