@@ -23,7 +23,7 @@
     </tr>
     <tr>
       <td>Features/Issues</td>
-      <td>topic-*</td>
+      <td><topic>-*</td>
       <td>Always branch off HEAD of Working</td>
     </tr>
     <tr>
