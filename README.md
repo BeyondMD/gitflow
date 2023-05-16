@@ -123,17 +123,17 @@ Although likelihood will be less, during the lifespan of the minor branches deve
 If the branch does not exist yet, create the branch locally and then push to origin. A minor branch should always be 'publicly' available. That is, changes should never exist in just one developer's local branch.
 
 ```
-$ git checkout devel                              // ensure you are currently on the devel branch
-$ git fetch                                         // updates all remote changes
-$ git pull origin HEAD                              // applies remote changes to local copy of devel
-$ git checkout -b minor-<name/desc> devel         // creates a local branch for the new minor branch
-$ git push origin minor-<name/desc>                 // makes the new branch remotely available
+$ git checkout devel                        // ensure you are currently on the devel branch
+$ git fetch                                 // updates all remote changes
+$ git pull origin HEAD                      // applies remote changes to local copy of devel
+$ git checkout -b minor-<name/desc> devel   // creates a local branch for the new minor branch
+$ git push origin minor-<name/desc>         // makes the new branch remotely available
 ```
 
 Periodically, changes made to `devel` (if any) should be merged back into your minor branch by the lead of said minor branch.
 
 ```
-$ git merge devel                                 // merges changes from devel into minor branch
+$ git merge devel                           // merges changes from devel into minor branch
 ```
 
 When development on the minor branch is complete a pull request should be created. The assignee should be the person who was assigned the feature ie. the team lead, or single dev and the reviewer should be your lead or your assigned reviewer. 
@@ -155,18 +155,18 @@ A hotfix branch comes from the need to act immediately upon an undesired state o
 If the branch does not exist yet, create the branch locally and then push to origin. A hotfix branch should always be 'publicly' available. That is, development should never exist in just one developer's local branch.
 
 ```
-$ git checkout master                                    // ensure you are currently on the master branch
-$ git fetch                                              // updates all remote changes
-$ git pull origin HEAD                                   // applies remote changes to local copy of master
-$ git checkout -b hf-<name/desc> master                  // creates a local branch for the new hotfix
-$ git push origin hf-<name/desc>                         // makes the new hotfix remotely available
+$ git checkout master                       // ensure you are currently on the master branch
+$ git fetch                                 // updates all remote changes
+$ git pull origin HEAD                      // applies remote changes to local copy of master
+$ git checkout -b hf-<name/desc> master     // creates a local branch for the new hotfix
+$ git push origin hf-<name/desc>            // makes the new hotfix remotely available
 ```
 
 When development on the hotfix is complete two pull requests should be created, one into `devel` as to not lose the changes, and the other into `master`. The assignee should be the person who was assigned the hotfix ie. the team lead, or single dev and the reviewer should be your lead or your assigned reviewer. 
 
 ## Pull Requests
 
-Pull requests are useful for two main reasons. It allows a branch to be merged back into an evergreen branch, and allows for code review. There should always be at least
+Pull requests are useful for two main reasons. It allows a branch to be merged back into an evergreen branch, and allows for code review. There should always be at least two people involved in a pull request: a reviewer and a
 
 Reviewer
 
