@@ -36,7 +36,7 @@
 
 `* = <name/desc>`
 
-`topic = feature/minor`
+`[topic] = feature/minor`
 
 ## Evergreen Branches
 
